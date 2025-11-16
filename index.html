@@ -533,7 +533,7 @@
             </div>
 
             <div class="instructions">
-                Используйте стрелки ← ↑ → ↓ для управления • ПРОБЕЛ для паузы
+                Используйте стрелки ← ↑ → ↓ или WASD для управления • ПРОБЕЛ для паузы
             </div>
         </div>
     </div>
@@ -545,7 +545,7 @@
                 this.SPEED_MULTIPLIER = 8;
                 this.GRID_SIZE = 20;
                 this.CORNER_RADIUS = 8;
-                this.INITIAL_SPEED = 7; // УВЕЛИЧЕНО НА 30% (было 5, стало 7)
+                this.INITIAL_SPEED = 7;
 
                 this.canvas = document.getElementById('gameCanvas');
                 this.ctx = this.canvas.getContext('2d');
@@ -636,6 +636,7 @@
                     
                     if (this.isPaused || this.isGameOver) return;
                     
+                    // УПРАВЛЕНИЕ СТРЕЛКАМИ (оставлено без изменений)
                     if (event.key === 'ArrowLeft') {
                         this.queuedDirection = { dx: -this.GRID_SIZE, dy: 0 };
                     }
@@ -646,6 +647,20 @@
                         this.queuedDirection = { dx: this.GRID_SIZE, dy: 0 };
                     }
                     if (event.key === 'ArrowDown') {
+                        this.queuedDirection = { dx: 0, dy: this.GRID_SIZE };
+                    }
+                    
+                    // ДОБАВЛЕНО: УПРАВЛЕНИЕ WASD
+                    if (event.code === 'KeyA') {
+                        this.queuedDirection = { dx: -this.GRID_SIZE, dy: 0 };
+                    }
+                    if (event.code === 'KeyW') {
+                        this.queuedDirection = { dx: 0, dy: -this.GRID_SIZE };
+                    }
+                    if (event.code === 'KeyD') {
+                        this.queuedDirection = { dx: this.GRID_SIZE, dy: 0 };
+                    }
+                    if (event.code === 'KeyS') {
                         this.queuedDirection = { dx: 0, dy: this.GRID_SIZE };
                     }
                 });
